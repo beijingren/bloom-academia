@@ -1,0 +1,85 @@
+
+\documentclass[12pt, draft]{article}
+
+\usepackage{xeCJK}
+\setCJKmainfont{AR PL UKai TW}
+
+\usepackage{csquotes}
+\usepackage[english]{babel}
+
+\usepackage[notes, backend=biber]{biblatex-chicago}
+\bibliography{main}
+
+%\usepackage{parskip}
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage[normalem]{ulem}
+
+\setmonofont{APL385}
+
+\begin{document}
+
+\title{TEIming the Dragon}
+\author{David Höppner and Manuel Sassmann}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+	We present a simple ontology based automatic tagging strategy
+	for
+	literary chinese. We exploid the
+	limited linguistic variance and uniform cultural usage
+	in the canonical sources to arrive at
+	automatic TEI annotations of many language constructions.
+	This preprocessing eases later finer-grained manual tagging.
+\end{abstract}
+
+Literary chinese \emph{wényánwén} 文言文, 
+the (artificial written) language of the educated gentry-elite
+of pre-modern China, was in practical use since the middle of the Warring States
+period Zhànguó 戰國 (476--221) till the
+abandonment of the imperial examination system in 1905.
+If one would look for a modern but quite more artificial equivalent,
+%In its conciseness and simple construction
+literary chinese could be easily compared
+to the APL (A Programming Language) notation Kenneth E. Iverson (1920--2004) invented
+in 1957 to improve upon the deficiencies of the standard mathematical notion.\footnote{
+	\cite{Iverson:1962}. For example the one-liner \texttt{(∼R∈R∘.×R)/R←1↓⍳R } calculates all prime numbers less then \texttt{R} by XXX.
+}
+Concise and of simple construction,
+ both languages share a similar intrinsic beauty.
+ But togther they also suffer from the same weakness that the ``to the point''
+ character entails. The
+ incomprehensibility of the artefacts writing it them with the passing of time.
+In the case of literary chinese we have less problems with
+the diciphering of grammatical constructions of a sentence,
+than with the missing background knowledge and specific context
+of a given text.
+
+
+In the largest editorial project of late imperial china
+the Qianlong emperor 乾隆 (r. 1735--1796) ordered in XXX
+to bring together and edit all existent 
+
+\begin{quote}
+	Summer rain is holding on for weeks,
+	[a sign that] early autumn did indeed arrive.
+	Since the second lunar month last year
+	when I took a leave [from office] because of illness
+	till now it has been 600 days.
+	Yuanming [Tao Qian] wrote:
+	»«\footcite[XXX]{Hightower:1970}
+
+	暑雨連旬
+	初秋就道
+	自去年二月引疾乞休
+	及是六百日矣
+	淵明云行行循歸路
+	計日望舊居
+	而今而後
+	歲月庶為我有乎\footcite[1221]{JYTSJ}
+\end{quote}
+
+\end{document}
