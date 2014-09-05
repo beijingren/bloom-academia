@@ -1,0 +1,100 @@
+
+\documentclass[12pt, draft]{article}
+
+\usepackage{xeCJK}
+\setCJKmainfont{AR PL UKai TW}
+
+\usepackage{csquotes}
+\usepackage[english]{babel}
+
+\usepackage[notes, backend=biber]{biblatex-chicago}
+\bibliography{main}
+
+%\usepackage{parskip}
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+
+\begin{document}
+
+\title{Karl-Steinbuch-Stipendium}
+\author{David Höppner and Manuel Sassmann}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\section{Technical Report}
+
+\subsection{Deployment and Development Environment}
+
+In the orginal project proposal we planed to use OpenIndiana
+an illumos based distribution, as your base deployment and development
+platform.
+While we still consider it a better platform with
+the availability of better debugging and analysis tools
+such as dtrace and mdb, and a better filesystem in form of zfs,
+we run into problems connecting various shared-ip zones.
+As we don't wanted waste too much critical time at the
+start period of the project, we switched to a linux based
+distribution and used containers to separate our
+services.  For the container management we initially
+used pre-stable release of docker.  That was a slightly
+bumpy road, as we encountered various bugs and interface changes.
+With the advent of docker version 1.0 the interface has
+stabilized and the platform has matured.
+We provide docker container build recipes for our
+postgres, exist, fuseki and django services.
+For the developer we provide a vagrant file which 
+installs your deployment distribution (CoreOS)
+into a virtual machine and then provisions our
+docker containers.
+Thus the developer only needs to run the command: \lstinline´# vagrant up´
+to install a local development environment.
+Deployment to a server is similar simple by running the docker container build recipes
+by hand.
+
+\subsection{Web Application}
+
+The web application provides the primary interface to the user so he can  interact with our services.
+The web application connects and interacts with the various data sources and presents
+the results to the user.
+We currently use the django framework with various additional modules,
+the main advantage of a python based framework resides in the availability
+of some third-party modules, that easy the interaction with existdb and XML
+documents.\footnote{eulxml eulexistdb}
+The user is presented with an interface to browse our collection of texts by
+author or title.  Other services are also available to the user, like our
+OCR or the annotation service.
+
+We consider the git file repository of your TEI documents are the master copy
+of our documents.  The main reason be for this stipulation resides in the
+UIMA component which annotates new entities on demand, but for which we
+currently only have a file collection reader.  If an update to the master copy
+is applied our XML database will reload the documents that did change.
+The user browse our TEI documents loaded into the XML database by title
+or author.  If he desires to view a single document, the TEI document under question
+will be fetched from the XML database.  Before the document is present to the
+user it must be XTSL transformed to rewrite the TEI tags into valid HTML
+tags.  
+
+\subsection{UIMA}
+
+\subsection{Further Work}
+
+Single services should be clustered to provide better availability. While CoreOS's etcd key-value store
+and fleet provide such capabilities, 
+% clustering
+
+
+\section{Research Results}
+
+CDDB
+knowledge graph
+dbpedia
+
+\end{document}
