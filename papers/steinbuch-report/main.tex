@@ -17,6 +17,7 @@
 
 \usepackage[normalem]{ulem}
 \usepackage{listings}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -32,18 +33,19 @@
 
 \subsection{Deployment and Development Environment}
 
-In the orginal project proposal we planed to use OpenIndiana
+In the orginal project proposal we planed to use OpenIndiana,
 an illumos based distribution, as your base deployment and development
-platform.
+platform.\footnote{\url{http://wiki.illumos.org/display/illumos/illumos+Home}, \url{http://openindiana.org/}}
 While we still consider it a better platform with
 the availability of better debugging and analysis tools
-such as dtrace and mdb, and a better filesystem in form of zfs,
-we run into problems connecting various shared-ip zones.
+such as dtrace and mdb, and a better filesystem in the form of zfs,
+we did run into problems connecting various shared-ip zones over a single network interface.
 As we don't wanted waste too much critical time at the
 start period of the project, we switched to a linux based
 distribution and used containers to separate our
 services.  For the container management we initially
-used pre-stable release of docker.  That was a slightly
+used pre-stable release of docker.\footnote{\url{https://www.docker.com/}}
+That was a slightly
 bumpy road, as we encountered various bugs and interface changes.
 With the advent of docker version 1.0 the interface has
 stabilized and the platform has matured.
@@ -52,7 +54,8 @@ postgres, exist, fuseki and django services.
 For the developer we provide a vagrant file which 
 installs your deployment distribution (CoreOS)
 into a virtual machine and then provisions our
-docker containers.
+docker containers.\footnote{CoreOS is a custom minimal distribution just to run
+containers \url{https://coreos.com/} \href{https://coreos.com/}{CoreOS} its similar to the illumos based SmartOS.}
 Thus the developer only needs to run the command: \lstinline´# vagrant up´
 to install a local development environment.
 Deployment to a server is similar simple by running the docker container build recipes
@@ -75,19 +78,48 @@ We consider the git file repository of your TEI documents are the master copy
 of our documents.  The main reason be for this stipulation resides in the
 UIMA component which annotates new entities on demand, but for which we
 currently only have a file collection reader.  If an update to the master copy
-is applied our XML database will reload the documents that did change.
-The user browse our TEI documents loaded into the XML database by title
+is appliedi, our XML database will reload the documents that did change.
+
+\subsubsection{Text Viewer}
+
+The user can browse our TEI documents currently loaded in the XML database by title
 or author.  If he desires to view a single document, the TEI document under question
 will be fetched from the XML database.  Before the document is present to the
 user it must be XTSL transformed to rewrite the TEI tags into valid HTML
-tags.  
+tags.
+
+Texts and single chapters can be downloaded in a plain text format or as colored pdf files.
+The user has the option to undisplay various annotations he has no interest in, for example
+he can hide the (modern) interpuction by pressing ".".
+
+New annotations can also be added in the viewer. The user selects the phrase he wants
+to mark with the mouse and then enters a keyboard shortcut to tag the selection.
+The marked phrase is send to the server and after a validation enters
+our RDF store as a new fact.  Our RDF store is partitioned into 2 named graphs.
+New facts supplied by users are by default stored in an extra graph, to seperate them
+from the core verified RDF store.  An table with the available keyboard commands
+can be found at the documentation section of the website.
+Annotations can be viewed and managed in the django admin interface if they are not
+automatical added to the RDF store.
+
+\subsubsection{OCR}
+
+Part of our web application is a OCR service.  We use tesseract in the backend for the
+actually recognition.  As tesseract is an open source solution the accuracy does not
+reach the levels of commercial offerings.  Our experiments with ABBYY FineReader
+resulted in a much better overall recognition rate, but the licensing fee is bound
+to the pages scaned.\footnote{\url{http://www.abbyy.de/}}
+We hope the Internet Archive upgrades they version of ABBYY to provide better fulltexts.
+
+\subsection{SPARQL}
 
 \subsection{UIMA}
 
 \subsection{Further Work}
 
 Single services should be clustered to provide better availability. While CoreOS's etcd key-value store
-and fleet provide such capabilities, 
+and fleet provide such capabilities, Mesos or Kubernetes
+\footnote{\url{http://mesos.apache.org/} \url{https://github.com/GoogleCloudPlatform/kubernetes}}
 % clustering
 
 
