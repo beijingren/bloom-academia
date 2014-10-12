@@ -42,13 +42,16 @@ such as dtrace and mdb, and a better filesystem in the form of zfs,
 we did run into problems connecting various shared-ip zones over a single network interface.
 As we don't wanted waste too much critical time at the
 start period of the project, we switched to a linux based
-distribution and used containers to separate our
+distribution and used containers (LXC) to separate our
 services.  For the container management we initially
 used pre-stable release of docker.\footnote{\url{https://www.docker.com/}}
 That was a slightly
 bumpy road, as we encountered various bugs and interface changes.
 With the advent of docker version 1.0 the interface has
 stabilized and the platform has matured.
+But its design is still inferior to other
+container implementations like the solaris zones or freebsd jails.
+
 We provide docker container build recipes for our
 postgres, exist, fuseki and django services.
 For the developer we provide a vagrant file which 
@@ -113,7 +116,52 @@ We hope the Internet Archive upgrades they version of ABBYY to provide better fu
 
 \subsection{SPARQL}
 
+We also run a public SPARQL (SPARQL Protocol and RDF Query Language) endpoint.
+This endpoint can be used via a web interface or programmatically through
+a client library.  It provides access to our manually modeled facts
+and facts extracted from automatic annotated sources.
+We use the functional notation of OWL (Web Ontology Language) to generate
+the corresponding RDF (Resource Description Framework) triples.
+Currently we employ a java based RDF store.\footnote{\url{http://jena.apache.org/documentation/serving_data/index.html}}
+If this solution does not scale well enough we might evaluate
+4store as an alternative.\footnote{\url{http://4store.org/}}
+
 \subsection{UIMA}
+
+UIMA (Unstructured Information Management Architecture) started as an
+ IBM project (Watson).\footnote{\url{http://uima.apache.org/}}
+It was later open sourced and is now an apache project.
+UIMA is a architecture and a standard for annotating and enriching unstructured data.
+It can be used for textual sources, but its not limited to this domain.
+In UIMA various components interact on top of a common analysis structure (CAS)
+to annotate documents. At the core we find analysis engines (AE) that
+annotate single documents by inserting types with offsets into the CAS.
+Analysis engines can share common knowledge (data structures) by
+using shared resource objects. This not only bundles
+source code into a single place but also speeds up processing as
+common data structures will be constructed only once and will be cached
+between single documents and by all engines.
+Before the analysis engines analyse documents, those documents
+must be transformed into the CAS format.
+This is done by the collection reader interface. Collection readers
+iterate through a document collection and build CAS structures
+for every single element. The CAS is passed then on to the analysis engines.
+As a final step the CAS could then be serialized again
+by a CAS consumer to generate a document in the original document format.
+In our UIMA component we follow this workflow but an additional CAS consumer
+extractes new information from the annotation it encounters
+in the newly processed document.  As analysis engine can be run in
+parallel or sequential order, as independent or
+depend engines (engine B needs the annotation results from engine A)
+schedules are needed. We currently use a simple linear pipeline to
+run our analysis engines. UIMA currently provides only this functionality
+more complex setups needs additional scale out frameworks that are
+not as easy to deploy.
+
+
+
+
+Besides the java version the framework also provides a C++ interface.
 
 \subsection{Further Work}
 
