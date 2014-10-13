@@ -158,22 +158,43 @@ run our analysis engines. UIMA currently provides only this functionality
 more complex setups needs additional scale out frameworks that are
 not as easy to deploy.
 
-
-
-
-Besides the java version the framework also provides a C++ interface.
+While UIMA provides a mature and well structured architecture for text analysis,
+some feature contrain the practical use.\footcite{Goetz:2014}
+In our context the static type system has the greatest negative impact.
+As we can hold to the precondition that all the input documents to our
+collection reader are valid TEI documents, we would preferable
+create for every encounted TEI tag a corresponding UIMA type and an annotation. 
+This would allow us to preserve all TEI tags encounted, even if dont use them
+yourself in your analysis engines. With a static type system
+as currently present in UIMA we need define all tags beforehand.
+As the TEI standard is quite extensive in the number of tags introduced,
+this is a tedious and laborious task.
+So we currently do not implement the whole standard but only a selection of tags
+our analysis engine use in their automatic annotations.
 
 \subsection{Further Work}
 
-Single services should be clustered to provide better availability. While CoreOS's etcd key-value store
-and fleet provide such capabilities, Mesos or Kubernetes
-\footnote{\url{http://mesos.apache.org/} \url{https://github.com/GoogleCloudPlatform/kubernetes}}
+\subsubsection{Infrastructure}
+Single services should be clustered to provide better availability. While CoreOS's key-value store etcd
+and fleet provide such capabilities, Mesos\footnote{\url{http://mesos.apache.org/}}
+ or Kubernetes\footnote{\url{https://github.com/GoogleCloudPlatform/kubernetes}}
+ likely better solutions.
 % clustering
+
+\subsubsection{UIMA}
+Besides the java version the framework also provides a C++ interface.
+A possible speed up of the interactive markup should be evaluated
+if we rewrite the manual annotator in C++.
 
 
 \section{Date and Time Expressions}
 
+In the following section we will outline a concrete annotation example.
+Date time expressions are particular handy, as they play a major role in 
+historical documents and occur in a fixed standard format.
+
 \subsection{Dynasties}
+
 In our context a dynasty is a period of time in which a succession of hereditary
 rulers by patrilineal descent from the dynastic founder ruled.\footcite[3]{Wilkinson:2012} 
 The probably most famous Chinese dynasty known to the general readership
@@ -182,13 +203,24 @@ An overview of all terms for imperial dynasties can be found in the literature.\
 Table 3 in \cite[4]{Wilkinson:2012}}
 Most expressions for dynasties in chinese are polysemes. For example the aforementioned
 \emph{tang} has also the meanings of 'dike' or it can function as a place name.\footcite[117]{Wang:2000}
+This introduces the general problem of ambiguous expressions, which can only be solved
+by further analysis of the expression itself or/and by more context. This is a problem
+which solves itself for most expressions with more then two characters, as the percentage
+of ambiguous words drops dramatically.
 
-\subsubsection{Dynasty + Person}
-唐韓愈 Han Yu () of the Tang dynasty
+If we observe the contextual occurences of single character dynasty expression we find the
+following uses:
 
-\subsubsection{Dynasty + Expression}
-宋興且百年 The Song dynasty flourished since hundred years
+\subsubsection{Dynasty Person}
+A dynasty appears in prefix position before a persons name to qualify the person further.
+\emph{Tang Han Yu} 唐韓愈 Han Yu (768-824) of the Tang dynasty.
 
+We iterate over persName annotations and check for prefix dynasty expressions.
+
+\subsubsection{Dynasty Expression}
+A certain part of the particular dynasty is denoted. \emph{Song yuqie bainian}
+宋興且百年 the Song [dynasty] flourished since hundred years,
+\emph{Song zhi zhongye} in the middle period of the Song [dynasty]
 宋之中葉
 
 
