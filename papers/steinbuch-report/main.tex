@@ -206,23 +206,64 @@ Most expressions for dynasties in chinese are polysemes. For example the aforeme
 This introduces the general problem of ambiguous expressions, which can only be solved
 by further analysis of the expression itself or/and by more context. This is a problem
 which solves itself for most expressions with more then two characters, as the percentage
-of ambiguous words drops dramatically.
+of ambiguous words drops dramatically. So the expression \emph{Nan Tang} 南唐
+and \emph{Hou Tang} 後唐 are less ambiguous.
+
+唐朝
+後唐時
 
 If we observe the contextual occurences of single character dynasty expression we find the
 following uses:
 
 \subsubsection{Dynasty Person}
 A dynasty appears in prefix position before a persons name to qualify the person further.
-\emph{Tang Han Yu} 唐韓愈 Han Yu (768-824) of the Tang dynasty.
+
+{\footnotesize
+\begin{table}[h]
+\caption{Dynasty expression before person name}
+\begin{tabular}{lll}
+\emph{Tang Han Yu} & 唐韓愈 & Han Yu (768-824) of the Tang [dynasty] \\
+\emph{Tang Xuanzong} & 唐玄宗 & Emperor Xuan of the Tang [dynasty] \\
+\emph{Tang shushi Su Jiaqing} &  唐術士蘇嘉慶 & esoteric art expert Su Jiaqing of the Tang [dynasty] \\
+\emph{Tang xiang Pei Du} &  唐相裴度 & chancellor Pei Du (765-839) of the Tang [dynasty] \\
+\end{tabular}
+\end{table}
+}
 
 We iterate over persName annotations and check for prefix dynasty expressions.
 
 \subsubsection{Dynasty Expression}
-A certain part of the particular dynasty is denoted. \emph{Song yuqie bainian}
-宋興且百年 the Song [dynasty] flourished since hundred years,
-\emph{Song zhi zhongye} in the middle period of the Song [dynasty]
-宋之中葉
+A certain part of the particular dynasty is denoted.
 
+{\footnotesize
+\begin{table}[h]
+\caption{Dynasty as part of an time range}
+\begin{tabular}{lll}
+\emph{Song yuqie bainian} & 宋興且百年 & the Song [dynasty] flourished since hundred years \\
+\emph{Song zhi zhongye} & 宋之中葉 & in the middle period of the Song [dynasty] \\
+\emph{zi Tang qi jin} & 自唐迄今 & from the Tang [dynasty] till today \\
+\emph{zi Tang zhi Zhou} & 自唐至周 & from the Tang [dynasty] till the Zhou [dynasty] \\
+\end{tabular}
+\end{table}
+}
+
+\subsubsection{Dynasty Era}
+
+{\footnotesize
+\begin{table}[h]
+\caption{Dynasty with era names}
+\begin{tabular}{lll}
+ & 唐武德初 & \\
+ & 唐開元中 & \\
+ & 唐開元末 & \\
+ & 唐開元間 & \\
+\end{tabular}
+\end{table}
+}
+
+\subsubsection{Dynasty Era Year}
+
+唐天寶五年
 
 dates, lucky days, travel ->
 
