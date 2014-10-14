@@ -33,9 +33,10 @@
 
 \subsection{Deployment and Development Environment}
 
-In the orginal project proposal we planed to use OpenIndiana,
-an illumos based distribution, as your base deployment and development
-platform.\footnote{\url{http://wiki.illumos.org/display/illumos/illumos+Home}, \url{http://openindiana.org/}}
+In the orginal project proposal we intended to use OpenIndiana\footnote{\url{http://openindiana.org/}},
+an illumos\footnote{\url{http://wiki.illumos.org/display/illumos/illumos+Home}}
+ based distribution, as your base deployment and development
+platform.
 While we still consider it a better platform with
 the availability of better debugging and analysis tools
 such as dtrace and mdb, and a better filesystem in the form of zfs,
@@ -53,8 +54,9 @@ But its design is still inferior to other
 container implementations like the solaris zones or freebsd jails.
 
 We provide docker container build recipes for our
-postgres, exist, fuseki and django services.
-For the developer we provide a vagrant file which 
+postgres, exist, fuseki, rabbitmq and django services.
+For the developer we provide a vagrant\footnote{\url{https://www.vagrantup.com/}}
+ file, which 
 installs your deployment distribution (CoreOS)
 into a virtual machine and then provisions our
 docker containers.\footnote{CoreOS is a custom minimal distribution just to run
@@ -66,13 +68,15 @@ by hand.
 
 \subsection{Web Application}
 
-The web application provides the primary interface to the user so he can  interact with our services.
+The web application provides the primary interface to the user. Its the main
+interaction point with our services.
 The web application connects and interacts with the various data sources and presents
 the results to the user.
-We currently use the django framework with various additional modules,
+We currently use the django framework\footnote{\url{https://www.djangoproject.com/}}
+ with various additional modules,
 the main advantage of a python based framework resides in the availability
 of some third-party modules, that easy the interaction with existdb and XML
-documents.\footnote{eulxml eulexistdb}
+documents.\footnote{Specifically two packages from Emory Libraries: eulxml and eulexistdb.}
 The user is presented with an interface to browse our collection of texts by
 author or title.  Other services are also available to the user, like our
 OCR or the annotation service.
@@ -81,19 +85,20 @@ We consider the git file repository of your TEI documents are the master copy
 of our documents.  The main reason be for this stipulation resides in the
 UIMA component which annotates new entities on demand, but for which we
 currently only have a file collection reader.  If an update to the master copy
-is appliedi, our XML database will reload the documents that did change.
+is applied, our XML database will reload the documents that did change.
 
 \subsubsection{Text Viewer}
 
-The user can browse our TEI documents currently loaded in the XML database by title
+The user can browse TEI documents currently loaded in the XML database by title
 or author.  If he desires to view a single document, the TEI document under question
 will be fetched from the XML database.  Before the document is present to the
 user it must be XTSL transformed to rewrite the TEI tags into valid HTML
 tags.
 
-Texts and single chapters can be downloaded in a plain text format or as colored pdf files.
+Texts and single chapters can be downloaded in a plain text format or as pdf files.
 The user has the option to undisplay various annotations he has no interest in, for example
-he can hide the (modern) interpuction by pressing ".".
+he can hide the (modern) interpuction by pressing ".".  Users should consult the
+help modal page for further shortcuts.
 
 New annotations can also be added in the viewer. The user selects the phrase he wants
 to mark with the mouse and then enters a keyboard shortcut to tag the selection.
@@ -107,19 +112,21 @@ automatical added to the RDF store.
 
 \subsubsection{OCR}
 
-Part of our web application is a OCR service.  We use tesseract in the backend for the
+Part of our web application is a OCR service.  We use tesseract\footnote{\url{http://code.google.com/p/tesseract-ocr/}}
+ in the backend for the
 actually recognition.  As tesseract is an open source solution the accuracy does not
 reach the levels of commercial offerings.  Our experiments with ABBYY FineReader
 resulted in a much better overall recognition rate, but the licensing fee is bound
 to the pages scaned.\footnote{\url{http://www.abbyy.de/}}
-We hope the Internet Archive upgrades they version of ABBYY to provide better fulltexts.
+We hope the Internet Archive upgrades they version of ABBYY some day to provide better fulltext
+version of they PDF documents.
 
 \subsection{SPARQL}
 
 We also run a public SPARQL (SPARQL Protocol and RDF Query Language) endpoint.
 This endpoint can be used via a web interface or programmatically through
 a client library.  It provides access to our manually modeled facts
-and facts extracted from automatic annotated sources.
+and also to facts extracted from automatic annotated sources.
 We use the functional notation of OWL (Web Ontology Language) to generate
 the corresponding RDF (Resource Description Framework) triples.
 Currently we employ a java based RDF store.\footnote{\url{http://jena.apache.org/documentation/serving_data/index.html}}
@@ -172,7 +179,7 @@ this is a tedious and laborious task.
 So we currently do not implement the whole standard but only a selection of tags
 our analysis engine use in their automatic annotations.
 
-\subsection{Further Work}
+\subsection{Future Improvements}
 
 \subsubsection{Infrastructure}
 Single services should be clustered to provide better availability. While CoreOS's key-value store etcd
@@ -181,11 +188,17 @@ and fleet provide such capabilities, Mesos\footnote{\url{http://mesos.apache.org
  likely better solutions.
 % clustering
 
-\subsubsection{UIMA}
-Besides the java version the framework also provides a C++ interface.
-A possible speed up of the interactive markup should be evaluated
-if we rewrite the manual annotator in C++.
+\subsubsection{Web Application}
 
+A full XML database is not necessary for the main functions of the site.
+Documents should be stored in a key value cache to provide
+better response times and to simplify the core functions.
+
+\subsubsection{UIMA}
+Besides the java version the UIMA also provides a C++ interface.
+A possible speed up of the interactive markup should be evaluated
+if we rewrite the manual annotator in C++ and trim its down to its basic
+functionality.
 
 \section{Date and Time Expressions}
 
@@ -232,7 +245,7 @@ A dynasty appears in prefix position before a persons name to qualify the person
 
 We iterate over persName annotations and check for prefix dynasty expressions.
 
-\subsubsection{Dynasty Expression}
+\subsubsection{Dynasty + Expression}
 A certain part of the particular dynasty is denoted.
 
 {\footnotesize
@@ -247,23 +260,33 @@ A certain part of the particular dynasty is denoted.
 \end{table}
 }
 
-\subsubsection{Dynasty Era}
+\subsubsection{Dynasty + Era}
 
 {\footnotesize
 \begin{table}[h]
 \caption{Dynasty with era names}
 \begin{tabular}{lll}
- & 唐武德初 & \\
- & 唐開元中 & \\
- & 唐開元末 & \\
- & 唐開元間 & \\
+\hline
+\emph{Tang wude chu} & 唐武德初 & at the beginning of the Tang era \emph{wude} \\
+\emph{Tang kaiyuan zhong } & 唐開元中 & in the era \emph{kaiyuan} of the Tang \\
+\emph{Tang kaiyuan mo} & 唐開元末 & at the end of the \emph{kaiyuan} era of the Tang \\
+\emph{Tang kaiyuan jian} & 唐開元間 & in the \emph{kaiyuan} era of the Tang \\
 \end{tabular}
 \end{table}
 }
 
-\subsubsection{Dynasty Era Year}
+\subsubsection{Dynasty + Era name + Year}
 
-唐天寶五年
+{\footnotesize
+\begin{table}[h]
+\caption{Dynasty with era names}
+\begin{tabular}{lll}
+\hline
+\emph{Tang tianbao wu nian} & 唐天寶五年 & the fifth year of \emph{tianbao} \\
+\end{tabular}
+\end{table}
+}
+
 
 dates, lucky days, travel ->
 
