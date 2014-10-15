@@ -228,10 +228,10 @@ and \emph{Hou Tang} 後唐 are less ambiguous.
 If we observe the contextual occurences of single character dynasty expression we find the
 following uses:
 
-\subsubsection{Dynasty Person}
+\subsubsection{Dynasty + Person}
 A dynasty appears in prefix position before a persons name to qualify the person further.
 
-{\footnotesize
+{\tiny
 \begin{table}[h]
 \caption{Dynasty expression before person name}
 \begin{tabular}{lll}
@@ -262,6 +262,10 @@ A certain part of the particular dynasty is denoted.
 
 \subsubsection{Dynasty + Era}
 
+Starting in the Han dynasty single reign periods where divided
+into eras.  Usually the era name is followed by an expression
+which marks the begin, middle or endi of the era.
+
 {\footnotesize
 \begin{table}[h]
 \caption{Dynasty with era names}
@@ -288,6 +292,13 @@ A certain part of the particular dynasty is denoted.
 }
 
 
+\subsubsection{Full Dates}
+If the dates are extended to the day level and behind we arrive at more complex
+expressions that mix different counting systems.
+
+
+
+ 
 dates, lucky days, travel ->
 
 eclipse of the sun
@@ -295,12 +306,37 @@ eclipse of the sun
 24 Solar Terms
 
 \section{General Problems}
-CDDB
-knowledge graph
-dbpedia
+
+We looked at various external sources to obtain
+input data for our UIMA annotators.
+While the 
+CBDB (China Biographical Database) Project\footnote{\url{http://isites.harvard.edu/icb/icb.do?keyword=k16229}}
+provides a extensive data set for persons between the 7th and and 19th century, 
+no indication of the relativ importance of a person is given.
+Importing all 328000 records for individuals would slow down 
+the annotation process, while inserting many possible wrong annotations.
+To provides a more controlled development environment for our annotations
+components, we postponed the import of this data set. There are open
+scalability issues with our current RDF store that need to be solved before.
+We wrote some code to convert the SQL data provided
+by CBDB into OWL.
+
+More in line with our own use of RDF as the main data representation
+stands the DBpedia project.\footnote{\url{http://dbpedia.org/About}}
+The DBPedia project generates RDF triples from the data found in info boxes that occur in wikipedia articles.
+The generated triples can be download or queried online via a SPARQL endpoint.
+In general wikipedia provides are more selected set of well known individuals,
+but the included info boxes, which are vital for dbpedia, are distributed
+very uneven among the different language versions. In the chinese version
+most relevant for our purposes they are absend in most cases.
+At the current situation too much entries
+are without info boxes and the individual is missing in the generated triple data set.
+
+\section{Conclusion}
 
 
-chenghu expressions
-personal names per time periods
+
+%chenghu expressions
+%personal names per time periods
 
 \end{document}
