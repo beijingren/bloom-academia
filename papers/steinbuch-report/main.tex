@@ -56,14 +56,44 @@ notes where written and published under the title \emph{Siku quanshu zongmu tiya
 四庫全書提要 (Catalogue (with critical abstracts) of the Complete library of the 
 four branches).
 
-TEI
+The phrase \emph{siku} 四庫 in the title of the \emph{Siku quanshu}
+denotes the four traditional categories \emph{jingbu} 經部
+(Classics), \emph{shibu} 史部 (Histories), \emph{zibu} 子部 (Philosophy)
+and \emph{jibu} 集部 (Literature)
+of chinese bibliographic sciences that emerged in the 3rd century.
+Those four categories express an value ordering of
+different genres of chinese literature.
 
-神仙傳 Traditions of Divine Transcendents
+We did chose the follow texts for our exemplary TEI annotation work.
+Two texts are annotated by hand, the rest was automatical annotated
+by the UIMA backend.
 
-秋聲集 Sounds of Autumn
+\begin{enumerate}
+\item The \emph{Shen xian zhuan} 神仙傳 (Traditions of Divine Transcendents)
+collects hagiographies of transcendents beings.  Its the second major
+work by Ge Hong 葛洪 (\emph{zi} Zhichuan 稚川, 283--363) besides his more
+famous \emph{Bao puzi} 抱朴子 (Master Who Embraces Simplicity).
+The text contains special vocabulary often found in daoist sources.
+Including plant, animal and mineral names as well as famous recipes.
+Was annotated by hand.
 
-宋史 History of the Song
+\item XXX
+Was annotated by hand.
 
+\item The \emph{Qiusheng ji} 秋聲集 (Sounds of Autumn Collection) gathers the poetry
+of the Yuan dynasty literatus Huang Zhencheng 黄鎭成 (\emph{zi} Fuzhen 符鎮, 1288-1362)
+into a 3 \emph{juan} work.
+It was chosen to demonstrate  and to experiment with rhyme and tone annotations.
+Annotated automatically with UIMA components.
+
+\item The 宋史 (History of the Song [dynasty]) is the most voluminous
+ official history \emph{zhengshi} 正史 included in the \emph{Siku quanshu}.
+Compiled between 1343--1345 under the chief editor Toghto Tuotuo 
+it is a vast source for the nomenclature  of the administrative aspects
+of the imperial rule.
+Annotated automatically with UIMA components.
+
+\end{enumerate}
  
 \section{Technical Report}
 
@@ -335,7 +365,7 @@ expressions that mix different counting systems.
 Having annotations for dates leads to various additional annotations that could
 be done.  This could be explicited  events like eclipses of the sun or droughts that
 are regulary mentioned in texts. But also implicit cultural information
-like the certain lucky days chosen for travel or major undertakings.
+like certain lucky days chosen for traveling or major undertakings.
  
 24 Solar Terms
 
@@ -367,7 +397,9 @@ At the current situation too much entries
 are without info boxes and the individual is missing in the generated triple data set.
 
 \section{Conclusion}
-
+Automatic annotations provide a great prospect for information extraction and
+advanced searches.  As a trivial example we can now abstractly search for the biggest
+numeral contained in a text. Or study the distribution of numerals in a number of texts.
 
 
 %chenghu expressions
