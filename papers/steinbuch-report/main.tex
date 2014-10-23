@@ -39,7 +39,7 @@ with preliminary results reached.
 
 The \emph{Siku quanshu} 四庫全書 (Complete library of the four branches)
 was one of the last major imperial editorial project of the
-soon ending imperial china.\footnote{The following section is based on the excellent
+soon ending imperial period of China.\footnote{The following section is based on the excellent
 description found in \cite[945-954]{Wilkinson:2012}. For the political
 background, see \cite{Guy:1987}}
 The sixth ruler of the Qing 清 dynasty, the long reigning
@@ -111,7 +111,7 @@ the results to the user.
 We currently use the django framework\footnote{\url{https://www.djangoproject.com/}}
  with various additional modules,
 the main advantage of a python based framework resides in the availability
-of some third-party modules, that easy the interaction with existdb and XML
+of some third-party modules, that ease the interaction with existdb and XML
 documents.\footnote{Specifically two packages from Emory Libraries: eulxml and eulexistdb.}
 The user is presented with an interface to browse our collection of texts by
 author or title.  Other services are also available to the user, like our
@@ -132,9 +132,9 @@ user it must be XTSL transformed to rewrite the TEI tags into valid HTML
 tags.
 
 Texts and single chapters can be downloaded in a plain text format or as pdf files.
-The user has the option to undisplay various annotations he has no interest in, for example
-he can hide the (modern) interpuction by pressing ".".  Users should consult the
-help modal page for further shortcuts.
+The user has the option to undisplay various annotations he has no interest in. For example
+he can hide the (modern) punctuation by pressing "." (full stop).  Users can consult the
+help page for further keyboard shortcuts.
 
 New annotations can also be added in the viewer. The user selects the phrase he wants
 to mark with the mouse and then enters a keyboard shortcut to tag the selection.
@@ -154,8 +154,8 @@ actually recognition.  As tesseract is an open source solution the accuracy does
 reach the levels of commercial offerings.  Our experiments with ABBYY FineReader
 resulted in a much better overall recognition rate, but the licensing fee is bound
 to the pages scaned.\footnote{\url{http://www.abbyy.de/}}
-We hope the Internet Archive upgrades they version of ABBYY some day to provide better fulltext
-version of they PDF documents.
+We hope the Internet Archive upgrades they version of ABBYY to provide better full text
+versions of their PDF scans.
 
 \subsection{SPARQL}
 
@@ -231,7 +231,7 @@ Documents should be stored in a key value cache to provide
 better response times and to simplify the core functions.
 
 \subsubsection{UIMA}
-Besides the java version the UIMA also provides a C++ interface.
+Besides the java version UIMA also provides a C++ interface.
 A possible speed up of the interactive markup should be evaluated
 if we rewrite the manual annotator in C++ and trim its down to its basic
 functionality.
@@ -256,10 +256,9 @@ This introduces the general problem of ambiguous expressions, which can only be 
 by further analysis of the expression itself or/and by more context. This is a problem
 which solves itself for most expressions with more then two characters, as the percentage
 of ambiguous words drops dramatically. So the expression \emph{Nan Tang} 南唐
-and \emph{Hou Tang} 後唐 are less ambiguous.
-
-唐朝
-後唐時
+and \emph{Hou Tang} 後唐 are less ambiguous. Even more certain are expressions like
+\emph{Tang chao} 唐朝 and \emph{Hou Tang shi} 後唐時 that carry a sematic marker
+of a time expression.
 
 If we observe the contextual occurences of single character dynasty expression we find the
 following uses:
@@ -333,12 +332,11 @@ If the dates are extended to the day level and behind we arrive at more complex
 expressions that mix different counting systems.
 
 
-
+Having annotations for dates leads to various additional annotations that could
+be done.  This could be explicited  events like eclipses of the sun or droughts that
+are regulary mentioned in texts. But also implicit cultural information
+like the certain lucky days chosen for travel or major undertakings.
  
-dates, lucky days, travel ->
-
-eclipse of the sun
-
 24 Solar Terms
 
 \section{General Problems}
