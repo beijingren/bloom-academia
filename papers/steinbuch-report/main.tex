@@ -325,11 +325,13 @@ A certain part of the particular dynasty is denoted.
 \end{table}
 }
 
+We search for fixed expressions and mark them.
+
 \subsubsection{Dynasty + Era}
 
 Starting in the Han dynasty single reign periods where divided
 into eras.  Usually the era name is followed by an expression
-which marks the begin, middle or endi of the era.
+which marks the begin, middle or end of the era.
 
 {\footnotesize
 \begin{table}[h]
@@ -344,6 +346,9 @@ which marks the begin, middle or endi of the era.
 \end{table}
 }
 
+We search for the limited number of era names in a document. In a second pass we
+resolve dynasty names before them.
+
 \subsubsection{Dynasty + Era name + Year}
 
 {\footnotesize
@@ -356,6 +361,8 @@ which marks the begin, middle or endi of the era.
 \end{table}
 }
 
+Again the era name is the most specific component. Iterate over all era names
+in a document and look for year measure suffixes.
 
 \subsubsection{Full Dates}
 If the dates are extended to the day level and behind we arrive at more complex
@@ -399,8 +406,11 @@ are without info boxes and the individual is missing in the generated triple dat
 \section{Conclusion}
 Automatic annotations provide a great prospect for information extraction and
 advanced searches.  As a trivial example we can now abstractly search for the biggest
-numeral contained in a text. Or study the distribution of numerals in a number of texts.
+numeral contained in a text. Or study the distribution of surnames in a number of texts
+over a long historical period to gain insight into migration patterns.
 
+Easy accessible and parseable data of chinese texts allows for new
+use of data science and data visualization workflows.
 
 %chenghu expressions
 %personal names per time periods
