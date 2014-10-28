@@ -27,19 +27,18 @@
 \maketitle
 
 \begin{abstract}
-In this article we
-give an technical overview of
+In the main part of this article we
+give a technical overview of
 our platform for automatic and manual
-TEI annotation of classic chinese texts from the \emph{Siku quanshu}.
-We conclude with further research directions and
-with preliminary results reached.
+TEI annotation of classical Chinese texts from the \emph{Siku quanshu}.
+We conclude with a section dealing with the preliminary results of further research directions and give suggestions for further development. An
 \end{abstract}
 
 \section{Introduction}
 
 The \emph{Siku quanshu} 四庫全書 (Complete library of the four branches)
 was one of the last major imperial editorial project of the
-soon ending imperial period of China.\footnote{The following section is based on the excellent
+late imperial China.\footnote{The following section is based on the excellent
 description found in \cite[945-954]{Wilkinson:2012}. For the political
 background, see \cite{Guy:1987}}
 The sixth ruler of the Qing 清 dynasty, the long reigning
@@ -64,7 +63,7 @@ of chinese bibliographic sciences that emerged in the 3rd century.
 Those four categories express an value ordering of
 different genres of chinese literature.
 
-We did chose the follow texts for our exemplary TEI annotation work.
+We chose the follow texts for our exemplary TEI annotation work.
 Two texts are annotated by hand, the rest was automatical annotated
 by the UIMA backend.
 
@@ -75,10 +74,7 @@ work by Ge Hong 葛洪 (\emph{zi} Zhichuan 稚川, 283--363) besides his more
 famous \emph{Bao puzi} 抱朴子 (Master Who Embraces Simplicity).
 The text contains special vocabulary often found in daoist sources.
 Including plant, animal and mineral names as well as famous recipes.
-Was annotated by hand.
-
-\item XXX
-Was annotated by hand.
+Annotated by hand.
 
 \item The \emph{Qiusheng ji} 秋聲集 (Sounds of Autumn Collection) gathers the poetry
 of the Yuan dynasty literatus Huang Zhencheng 黄鎭成 (\emph{zi} Fuzhen 符鎮, 1288-1362)
@@ -93,6 +89,10 @@ it is a vast source for the nomenclature  of the administrative aspects
 of the imperial rule.
 Annotated automatically with UIMA components.
 
+\item The 天主實義 (True Meaning of the Lord of Heaven) and 天問略 (Epitome of Questions on the Heavens) include technical terms for argumentation and anstronomy. 
+Annotated by hand with citable page references of the base-text used for digitization. 
+
+
 \end{enumerate}
  
 \section{Technical Report}
@@ -101,14 +101,14 @@ Annotated automatically with UIMA components.
 
 In the orginal project proposal we intended to use OpenIndiana\footnote{\url{http://openindiana.org/}},
 an illumos\footnote{\url{http://wiki.illumos.org/display/illumos/illumos+Home}}
- based distribution, as your base deployment and development
+ based distribution, as our base deployment and development
 platform.
 While we still consider it a better platform with
 the availability of better debugging and analysis tools
 such as dtrace and mdb, and a better filesystem in the form of zfs,
 we did run into problems connecting various shared-ip zones over a single network interface.
-As we don't wanted waste too much critical time at the
-start period of the project, we switched to a linux based
+As we didn't want to waste too much critical time at the
+starting period of the project, we switched to a linux based
 distribution and used containers (LXC) to separate our
 services.  For the container management we initially
 used pre-stable release of docker.\footnote{\url{https://www.docker.com/}}
@@ -123,13 +123,13 @@ We provide docker container build recipes for our
 postgres, exist, fuseki, rabbitmq and django services.
 For the developer we provide a vagrant\footnote{\url{https://www.vagrantup.com/}}
  file, which 
-installs your deployment distribution (CoreOS)
+installs our deployment distribution (CoreOS)
 into a virtual machine and then provisions our
 docker containers.\footnote{CoreOS is a custom minimal distribution just to run
 containers \url{https://coreos.com/} \href{https://coreos.com/}{CoreOS} its similar to the illumos based SmartOS.}
-Thus the developer only needs to run the command: \lstinline´# vagrant up´
+Thus the developer only needs to run the command \lstinline '# vagrant up´
 to install a local development environment.
-Deployment to a server is similar simple by running the docker container build recipes
+Deployment to a server is similarly simple by running the docker container build recipes
 by hand.
 
 \subsection{Web Application}
@@ -147,8 +147,8 @@ The user is presented with an interface to browse our collection of texts by
 author or title.  Other services are also available to the user, like our
 OCR or the annotation service.
 
-We consider the git file repository of your TEI documents are the master copy
-of our documents.  The main reason be for this stipulation resides in the
+We consider the git file repository of our TEI documents as the master copy
+of our documents.  The main reason for this stipulation resides in the
 UIMA component which annotates new entities on demand, but for which we
 currently only have a file collection reader.  If an update to the master copy
 is applied, our XML database will reload the documents that did change.
@@ -156,8 +156,8 @@ is applied, our XML database will reload the documents that did change.
 \subsubsection{Text Viewer}
 
 The user can browse TEI documents currently loaded in the XML database by title
-or author.  If he desires to view a single document, the TEI document under question
-will be fetched from the XML database.  Before the document is present to the
+or author.  If s/he desires to view a single document, the TEI document under question
+will be fetched from the XML database.  Before the document is presented to the
 user it must be XTSL transformed to rewrite the TEI tags into valid HTML
 tags.
 
@@ -168,28 +168,28 @@ help page for further keyboard shortcuts.
 
 New annotations can also be added in the viewer. The user selects the phrase he wants
 to mark with the mouse and then enters a keyboard shortcut to tag the selection.
-The marked phrase is send to the server and after a validation enters
+The marked phrase is sent to the server and after validation enters
 our RDF store as a new fact.  Our RDF store is partitioned into 2 named graphs.
 New facts supplied by users are by default stored in an extra graph, to seperate them
-from the core verified RDF store.  An table with the available keyboard commands
-can be found at the documentation section of the website.
+from the core verified RDF store.  A list with the available keyboard commands
+can be found within the documentation section of the website.
 Annotations can be viewed and managed in the django admin interface if they are not
-automatical added to the RDF store.
+automatically added to the RDF store.
 
 \subsubsection{OCR}
 
-Part of our web application is a OCR service.  We use tesseract\footnote{\url{http://code.google.com/p/tesseract-ocr/}}
+Part of our web application is an OCR service.  We use tesseract\footnote{\url{http://code.google.com/p/tesseract-ocr/}}
  in the backend for the
-actually recognition.  As tesseract is an open source solution the accuracy does not
-reach the levels of commercial offerings.  Our experiments with ABBYY FineReader
+actual recognition.  As tesseract is an open source solution the accuracy does not
+reach the levels of commercial offerings.  Our experiments with ABBYY FineReader (Version 12)
 resulted in a much better overall recognition rate, but the licensing fee is bound
-to the pages scaned.\footnote{\url{http://www.abbyy.de/}}
-We hope the Internet Archive upgrades they version of ABBYY to provide better full text
+to the pages scanned.\footnote{\url{http://www.abbyy.de/}}
+We hope the Internet Archive \footnote{\url{http://www.archive.org/}} upgrades they version of ABBYY to provide better full text
 versions of their PDF scans.
 
 \subsection{SPARQL}
 
-We also run a public SPARQL (SPARQL Protocol and RDF Query Language) endpoint.
+We also run a public SPARQL (\textbf{S}PARQL \textbf{P}rotocol \textbf{A}nd \textbf{R}DF \textbf{Q}uery \textbf{L}anguage) endpoint.
 This endpoint can be used via a web interface or programmatically through
 a client library.  It provides access to our manually modeled facts
 and also to facts extracted from automatic annotated sources.
@@ -204,8 +204,8 @@ If this solution does not scale well enough we might evaluate
 UIMA (Unstructured Information Management Architecture) started as an
  IBM project (Watson).\footnote{\url{http://uima.apache.org/}}
 It was later open sourced and is now an apache project.
-UIMA is a architecture and a standard for annotating and enriching unstructured data.
-It can be used for textual sources, but its not limited to this domain.
+UIMA is an architecture and a standard for annotating and enriching unstructured data.
+It can be used for textual sources, but it is not limited to this domain.
 In UIMA various components interact on top of a common analysis structure (CAS)
 to annotate documents. At the core we find analysis engines (AE) that
 annotate single documents by inserting types with offsets into the CAS.
@@ -218,31 +218,31 @@ Before the analysis engines analyse documents, those documents
 must be transformed into the CAS format.
 This is done by the collection reader interface. Collection readers
 iterate through a document collection and build CAS structures
-for every single element. The CAS is passed then on to the analysis engines.
-As a final step the CAS could then be serialized again
+for every single element. The CAS is then passed on to the analysis engines.
+As a final step the CAS can be serialized again
 by a CAS consumer to generate a document in the original document format.
 In our UIMA component we follow this workflow but an additional CAS consumer
-extractes new information from the annotation it encounters
-in the newly processed document.  As analysis engine can be run in
+extracts new information from the annotation it encounters
+in the newly processed document.  As analysis engines can be run in
 parallel or sequential order, as independent or
-depend engines (engine B needs the annotation results from engine A)
+depend engines (engine B needs the annotation results from engine A),
 schedules are needed. We currently use a simple linear pipeline to
-run our analysis engines. UIMA currently provides only this functionality
-more complex setups needs additional scale out frameworks that are
+run our analysis engines. UIMA currently provides only this functionality.
+More complex setups need additional scale out frameworks that are
 not as easy to deploy.
 
 While UIMA provides a mature and well structured architecture for text analysis,
-some feature contrain the practical use.\footcite{Goetz:2014}
+some features contrain the practical use.\footcite{Goetz:2014}
 In our context the static type system has the greatest negative impact.
 As we can hold to the precondition that all the input documents to our
 collection reader are valid TEI documents, we would preferable
 create for every encounted TEI tag a corresponding UIMA type and an annotation. 
-This would allow us to preserve all TEI tags encounted, even if dont use them
-yourself in your analysis engines. With a static type system
+This would allow us to preserve all TEI tags encounted, even if the user does not use them
+himself in his analysis engines. With a static type system
 as currently present in UIMA we need define all tags beforehand.
 As the TEI standard is quite extensive in the number of tags introduced,
 this is a tedious and laborious task.
-So we currently do not implement the whole standard but only a selection of tags
+Therefore we currently do not implement the whole standard but only a selection of tags
 our analysis engine use in their automatic annotations.
 
 \subsection{Future Improvements}
@@ -250,7 +250,7 @@ our analysis engine use in their automatic annotations.
 \subsubsection{Infrastructure}
 Single services should be clustered to provide better availability. While CoreOS's key-value store etcd
 and fleet provide such capabilities, Mesos\footnote{\url{http://mesos.apache.org/}}
- or Kubernetes\footnote{\url{https://github.com/GoogleCloudPlatform/kubernetes}}
+ or Kubernetes\footnote{\url{https://github.com/GoogleCloudPlatform/kubernetes}} are
  likely better solutions.
 % clustering
 
@@ -263,7 +263,7 @@ better response times and to simplify the core functions.
 \subsubsection{UIMA}
 Besides the java version UIMA also provides a C++ interface.
 A possible speed up of the interactive markup should be evaluated
-if we rewrite the manual annotator in C++ and trim its down to its basic
+if we rewrite the manual annotator in C++ and trim it down to its basic
 functionality.
 
 \section{Date and Time Expressions}
@@ -294,7 +294,7 @@ If we observe the contextual occurences of single character dynasty expression w
 following uses:
 
 \subsubsection{Dynasty + Person}
-A dynasty appears in prefix position before a persons name to qualify the person further.
+A dynasty appears in prefix position before a person's name to qualify the person further.
 
 {\tiny
 \begin{table}[h]
@@ -315,9 +315,9 @@ A certain part of the particular dynasty is denoted.
 
 {\footnotesize
 \begin{table}[h]
-\caption{Dynasty as part of an time range}
+\caption{Dynasty as part of a time range}
 \begin{tabular}{lll}
-\emph{Song yuqie bainian} & 宋興且百年 & the Song [dynasty] flourished since hundred years \\
+\emph{Song xing qie bainian} & 宋興且百年 & the Song [dynasty] flourished since hundred years \\
 \emph{Song zhi zhongye} & 宋之中葉 & in the middle period of the Song [dynasty] \\
 \emph{zi Tang qi jin} & 自唐迄今 & from the Tang [dynasty] till today \\
 \emph{zi Tang zhi Zhou} & 自唐至周 & from the Tang [dynasty] till the Zhou [dynasty] \\
@@ -370,7 +370,7 @@ expressions that mix different counting systems.
 
 
 Having annotations for dates leads to various additional annotations that could
-be done.  This could be explicited  events like eclipses of the sun or droughts that
+be done.  This could be explicit  events like eclipses of the sun or droughts that
 are regulary mentioned in texts. But also implicit cultural information
 like certain lucky days chosen for traveling or major undertakings.
  
@@ -383,10 +383,10 @@ input data for our UIMA annotators.
 While the 
 CBDB (China Biographical Database) Project\footnote{\url{http://isites.harvard.edu/icb/icb.do?keyword=k16229}}
 provides a extensive data set for persons between the 7th and and 19th century, 
-no indication of the relativ importance of a person is given.
+no indication of the relative importance of a person is given.
 Importing all 328000 records for individuals would slow down 
 the annotation process, while inserting many possible wrong annotations.
-To provides a more controlled development environment for our annotations
+To provide a more controlled development environment for our annotation
 components, we postponed the import of this data set. There are open
 scalability issues with our current RDF store that need to be solved before.
 We wrote some code to convert the SQL data provided
@@ -394,23 +394,23 @@ by CBDB into OWL.
 
 More in line with our own use of RDF as the main data representation
 stands the DBpedia project.\footnote{\url{http://dbpedia.org/About}}
-The DBPedia project generates RDF triples from the data found in info boxes that occur in wikipedia articles.
-The generated triples can be download or queried online via a SPARQL endpoint.
-In general wikipedia provides are more selected set of well known individuals,
+The DBPedia project generates RDF triples from the data found in info boxes that occur in Wikipedia articles.
+The generated triples can be downloaded or queried online via a SPARQL endpoint.
+In general Wikipedia provides a more narrow set of well known individuals,
 but the included info boxes, which are vital for dbpedia, are distributed
-very uneven among the different language versions. In the chinese version
-most relevant for our purposes they are absend in most cases.
-At the current situation too much entries
+very unevenly among the different language versions. In the Chinese version,
+most relevant for our purposes they are absent in most cases.
+At present too many entries
 are without info boxes and the individual is missing in the generated triple data set.
 
 \section{Conclusion}
-Automatic annotations provide a great prospect for information extraction and
+Automatic annotations offer possibilities for information extraction and
 advanced searches.  As a trivial example we can now abstractly search for the biggest
 numeral contained in a text. Or study the distribution of surnames in a number of texts
 over a long historical period to gain insight into migration patterns.
 
-Easy accessible and parseable data of chinese texts allows for new
-use of data science and data visualization workflows.
+Easily accessible and parseable data of Chinese texts allows for new
+uses of data science and data visualization workflows.
 
 %chenghu expressions
 %personal names per time periods
